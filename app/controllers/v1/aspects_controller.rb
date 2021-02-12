@@ -18,7 +18,7 @@ class V1::AspectsController < ApplicationController
     @aspect = Aspect.new(aspect_params)
 
     if @aspect.save
-      render json: @aspect, status: :created, location: @aspect
+      render json: @aspect, status: :created
     else
       render json: @aspect.errors, status: :unprocessable_entity
     end

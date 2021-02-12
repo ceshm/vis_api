@@ -18,7 +18,7 @@ class V1::TagsController < ApplicationController
     @tag = Tag.new(tag_params)
 
     if @tag.save
-      render json: @tag, status: :created, location: @tag
+      render json: @tag, status: :created
     else
       render json: @tag.errors, status: :unprocessable_entity
     end
@@ -46,6 +46,6 @@ class V1::TagsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def tag_params
-      params.fetch(:tag, {})
+      params.require(:tag).permit(:name, data: {})
     end
 end
