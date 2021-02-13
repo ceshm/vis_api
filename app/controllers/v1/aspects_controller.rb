@@ -10,7 +10,7 @@ class V1::AspectsController < ApplicationController
 
   # GET /aspects/1
   def show
-    render json: @aspect
+    render json: @aspect.as_json.merge({ "children" => @aspect.children.map(&:as_json) })
   end
 
   # POST /aspects
@@ -46,6 +46,6 @@ class V1::AspectsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def aspect_params
-      params.fetch(:aspect, {})
+      params.require(:aspect).permit(:name, :parent_id, data: {})
     end
 end
